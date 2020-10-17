@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1,
+            shrink-to-fit=no" />
+
+    <title>KEEP ALIVE</title>
+    <!-- GOOGLE FONT -->
+    <link href="https://fonts.googleapis.com/css2?family=Cuprum:ital,wght@1,400;1,700&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous" />
+    <!-- OWN STYLE SHEET -->
+    <link rel="stylesheet" href="./css/style.css" />
+
+</head>
+
+<body>
+    
+    <nav class="navbar fixed-top navbar-dark bg-success">
+        <a class="navbar-brand" href="#">KEEP-ALIVE</a>
+    </nav>
+    <div class="container-fluid mt-5">
+        <div class="row">
+            <div class="col text-center mt-5">
+                <h1>Can You Keep Alive For Long Enough?!</h1>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col text-center">
+                <p>Keep alive by avoiding the <b class="ghost">Ghosts</b> and <b class='green'>eating</b> as much as you can!</p></p>
+                <p>Use the Arrow Keys to move around</p>
+            </div>
+        </div>
+        <div id='btnRow' class="row mt-5">
+            <div class="col text-center">
+                <button type="button" id='eatBtn' class="btn bt n-warning btn-lg">LETS GO EAT!</button>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-8 offset-1" id='canvasCol'>
+                <canvas id='canvas' class='d-none' style="border: 2px limegreen solid;">\
+                </canvas>
+            </div>
+            <div class="col-3 text-center d-none" id="statsCol">
+                <div id='statsContainer' class='ml-4'>
+                    <h1>STATS</h1>
+                    <div class="row mb-4">
+                        <div class="col">
+                            <h3 class="text-left">Health:</h3>
+                            <div class="progress">
+                                <div id="healthBar" class="progress-bar progress-bar-striped bg-success progress-bar-animated" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <h3 class="text-left">Progress:</h3>
+                            <div class="progress">
+                                <div id="progressBar" class="progress-bar progress-bar-striped bg-primary progress-bar-animated" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+        <div id='message' class="modal-body text-center mt-5">
+        </div>
+        <div class="modal-footer mx-auto">
+            <button id="resetGame" type="button" class="btn btn-success" data-dismiss="modal">Play Again</button>
+        </div>
+    </div>
+</div>
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    
+    <!-- MY OWN JS -->
+    <script src="./js/helperFunction.js"></script>
+    <script src="./js/objects.js"></script>
+    <script src="./js/index.js"></script>
+    <script src="./js/game.js"></script>
+</body>
+
+</html>

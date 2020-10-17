@@ -1,0 +1,29 @@
+body{
+    font-size: 10px;
+    font-family: 'Cuprum', sans-serif;
+    background-color: lightcyan;
+}
+
+h1{
+    font-weight: 700;
+}
+
+p{
+    font-size: 2em;
+}
+
+.green{
+    color: #28A745;
+}
+
+.red{
+    color: #DC3545;
+}
+
+.orange{
+    color: #FFC106;
+}
+
+.ghost{
+    color: rgb(150, 146, 146, 0.5)
+}
