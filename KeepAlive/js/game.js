@@ -1,4 +1,5 @@
 let level;
+let ghostSpeed;
 let ghostsArray = [];
 let foodArray = [];
 let foodQuantity;
@@ -28,7 +29,6 @@ function keyDownHandler(e) {
     e.preventDefault();
     player.y = player.y + 5;
   }
-  console.log(e.key)
 }
 
 
@@ -80,16 +80,16 @@ function healthDrop(){
         clearInterval(healthDropInterval)
       }
       player.health -= 1
-      // console.log(player.health)
       updateHealth()
     } 
     ,5000)
 }
 
-function getPathCoords(xpos, ypos) {
+function getPathCoords(xpos, ypos, speed) {
+  //Ghostspeed indicates the amount of points in the plotCBez, the lower the number the less points the fast the ghost moves.
+  let ghostSpeed = speed;
   let startPos = { x: xpos, y: ypos };
   let routeArray = [];
-  // let i = randomNumber(6, 50);
   let i = 3;
   let route = [];
   while (i--) {
@@ -117,7 +117,7 @@ function getPathCoords(xpos, ypos) {
     }
     route.push(
       plotCBez(
-        1000,
+        ghostSpeed,
         1.5,
         startPos.x,
         startPos.y,
@@ -171,7 +171,6 @@ function eatenFood(){
         return true;
     }
     foodArray.forEach(function(food, index, object){
-        // console.log(food)
         var circle1 = player;
         var circle2 = food;
     
@@ -180,14 +179,12 @@ function eatenFood(){
         var distance = Math.sqrt(dx * dx + dy * dy);
     
         if (distance < circle1.radius + circle2.radius) {
-            // console.log('hit')
+
             eatenArr.push(true)
             object.splice(index,1)
             if(player.health <100){
-                // console.log('You Eat some Food! Good Job!')
                 player.health ++
                 updateHealth()
-                // console.log(`health is at: ${player.health}`)
             }
             updateProgress()
         }
@@ -210,21 +207,9 @@ function initialiseGhost() {
   for (let i = 0; i < ghostQuantity; i++) {
     let randomX = randomNumber(width, 100);
     let randomY = randomNumber(height, 100);
-    // let speed = 0.2 + Math.random() * 3;
+    let speed = ghostSpeed
     let path = getPathCoords(randomX, randomY);
-    let name = `Ghost_${i}`;
-    let colour = '';
-    switch (i) {
-      case 0:
-        colour = 'yellow';
-        break;
-      case 1:
-        colour = 'blue';
-        break;
-      case 2:
-        colour = 'red';
-    }
-    let ghost = new Ghost(randomX, randomY, path, name, colour, 10);
+    let ghost = new Ghost(randomX, randomY, path, speed);
     ghostsArray.push(ghost);
   }
 }
@@ -250,13 +235,14 @@ function gameOver(message) {
 
 function resetLevel(){
   level = 1
-  foodQuantity = 2;
-  ghostQuantity = 1;
+  foodQuantity = 1;
+  ghostQuantity = 3;
+  ghostSpeed = 1000;
   document.getElementById('levelIndicator').textContent = `LEVEL ${level}`
 }
 
 function levelUp(message){
-  console.log(`Current level: ${level}`)
+  // console.log(`Current level: ${level}`)
   document.getElementById('message').innerHTML = `<h1>${message}</h1>`
   
   if(document.getElementById('nextLevel').classList.contains('d-none')){
@@ -268,23 +254,27 @@ function levelUp(message){
 
   level += 1
   document.getElementById('levelIndicator').textContent = `LEVEL ${level}`
-  console.log(`new Level: ${level}`)
+
   switch (level){
     case 2:
-      foodQuantity = 1;
-      ghostQuantity = 3;
+      foodQuantity = 20;
+      ghostQuantity = 5;
+      ghostSpeed = 800;
       break;
     case 3:
-      foodQuantity = 1;
-      ghostQuantity = 6;
+      foodQuantity = 15;
+      ghostQuantity = 10;
+      ghostSpeed = 600;
       break;
     case 4:
-      foodQuantity = 1;
-      ghostQuantity = 9;
+      foodQuantity = 10;
+      ghostQuantity = 15;
+      ghostSpeed = 400;
       break;
     case 5:
-      foodQuantity = 1;
-      ghostQuantity = 12
+      foodQuantity = 5;
+      ghostQuantity = 30;
+      ghostSpeed = 200;
       break;
   }
 }

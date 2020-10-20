@@ -1,8 +1,9 @@
 class Ghost{
-    constructor(posX,posY,path){
+    constructor(posX,posY,path,speed){
         this.x = posX
         this.y = posY
         this.count = 0;
+        this.speed = speed
         this.path = path;
         this.height = 50
         this.width = 50
@@ -65,7 +66,7 @@ class Ghost{
     }
 
     getNewPath(){
-        let newCoords = getPathCoords(this.x, this.y)
+        let newCoords = getPathCoords(this.x, this.y, this.speed)
         this.path = this.path.concat(newCoords)
     }
 
@@ -104,8 +105,6 @@ class Player{
         ctx.strokeStyle = "#DC3545";
         ctx.fillStyle = '#DC3545';
         ctx.beginPath()
-        // ctx.arc(this.x,this.y,this.r,0,Math.PI*2,'anticlockwise')
-        // ctx.rect(this.x, this.y, this.width, this.height)
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI*2)
         ctx.stroke()
         ctx.fill()
