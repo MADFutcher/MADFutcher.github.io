@@ -1,11 +1,9 @@
 class Ghost{
-    constructor(posX,posY,path, name, colour){
+    constructor(posX,posY,path){
         this.x = posX
         this.y = posY
         this.count = 0;
         this.path = path;
-        this.name = name
-        // this.colour = colour
         this.height = 50
         this.width = 50
     }

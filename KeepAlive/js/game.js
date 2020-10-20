@@ -1,7 +1,8 @@
+let level;
 let ghostsArray = [];
 let foodArray = [];
-let foodQuantity = 12;
-let ghostQuantity = 5;
+let foodQuantity;
+let ghostQuantity;
 let healthDropInterval;
 let player;
 let box;
@@ -9,6 +10,7 @@ let width;
 let height;
 let requestId;
 
+window.addEventListener('resize', resizeCanvas, false);
 document.addEventListener('keydown', keyDownHandler, false);
 // document.addEventListener("keyup", keyUpHandler, false);
 
@@ -25,7 +27,7 @@ function keyDownHandler(e) {
   e.preventDefault();
 }
 
-window.addEventListener('resize', resizeCanvas, false);
+
 function resizeCanvas() {
   let box = document.querySelector('#canvasCol');
   width = box.offsetWidth;
@@ -65,7 +67,6 @@ function updateHealth(){
 
 function updateProgress(){
   percentage = 100-(foodArray.length / foodQuantity)*100
-  console.log(percentage)
   progressBar.style.width = `${percentage}%`
 }
 
@@ -233,24 +234,61 @@ function initialisePlayer() {
 }
 
 function gameOver(message) {
-    if(message.includes('|')){
-      messages = message.split('|')
-      document.getElementById('message').innerHTML = `<h1>${messages[0]}</h1><p>${messages[1]}`
-    }else{
-      document.getElementById('message').innerHTML = `<h1>${message}</h1>`
+    messages = message.split('|')
+    document.getElementById('message').innerHTML = `<h1>${messages[0]}</h1><p>${messages[1]}</p>`
+    if(!document.getElementById('nextLevel').classList.contains('d-none')){
+      document.getElementById('nextLevel').classList.add('d-none')
     }
-   
     $('#myModal').modal()
-    console.log(requestId)
-    console.log(cancelAnimationFrame(requestId))
     cancelAnimationFrame(requestId)
     stopInterval(healthDropInterval)
+}
 
+function resetLevel(){
+  level = 1
+  foodQuantity = 2;
+  ghostQuantity = 1;
+  document.getElementById('levelIndicator').textContent = `LEVEL ${level}`
+}
+
+function levelUp(message){
+  console.log(`Current level: ${level}`)
+  document.getElementById('message').innerHTML = `<h1>${message}</h1>`
+  
+  if(document.getElementById('nextLevel').classList.contains('d-none')){
+    document.getElementById('nextLevel').classList.remove('d-none')
+  }
+  $('#myModal').modal()
+  cancelAnimationFrame(requestId)
+  stopInterval(healthDropInterval)
+
+  level += 1
+  document.getElementById('levelIndicator').textContent = `LEVEL ${level}`
+  console.log(`new Level: ${level}`)
+  switch (level){
+    case 2:
+      foodQuantity = 1;
+      ghostQuantity = 3;
+      break;
+    case 3:
+      foodQuantity = 1;
+      ghostQuantity = 6;
+      break;
+    case 4:
+      foodQuantity = 1;
+      ghostQuantity = 9;
+      break;
+    case 5:
+      foodQuantity = 1;
+      ghostQuantity = 12
+      break;
+  }
 }
 
 function draw() {
   clearCanvas();
   if(player.health<=0){
+    resetLevel()
     gameOver('GAME OVER | Your Health ran out!');
     return;
   }
@@ -262,8 +300,15 @@ function draw() {
   });
   player.createPlayer();
   if(eatenFood()){
-    gameOver("You've Won!!");
-    return;
+    if(level < 5){
+      levelUp(`You have completed level ${level}`);
+      return;
+    }else{
+      resetLevel()
+      gameOver('Game Over | You have Completed All Levels')
+      return;
+    }
+    
   };
   let collision = collisionDetection()
   if(collision.length>0){
@@ -271,7 +316,9 @@ function draw() {
       updateHealth()
       // console.log(`player health: ${player.health}`)
       if(player.health<0){
+        resetLevel()
         gameOver('GAME OVER | You were killed by a Ghost');
+        
         return;
       }
 
@@ -279,6 +326,8 @@ function draw() {
   requestId = requestAnimationFrame(draw);
 }
 
+resetLevel();
 initialiseGhost();
 initialiseFood();
 initialisePlayer();
+
