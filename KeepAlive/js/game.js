@@ -16,15 +16,19 @@ document.addEventListener('keydown', keyDownHandler, false);
 
 function keyDownHandler(e) {
   if (e.key == 'Right' || e.key == 'ArrowRight') {
+    e.preventDefault();
     player.x = player.x + 5;
   } else if (e.key == 'Left' || e.key == 'ArrowLeft') {
+    e.preventDefault();
     player.x = player.x - 5;
   } else if (e.key == 'Up' || e.key == 'ArrowUp') {
+    e.preventDefault();
     player.y = player.y - 5;
   } else if (e.key == 'Down' || e.key == 'ArrowDown') {
+    e.preventDefault();
     player.y = player.y + 5;
   }
-  e.preventDefault();
+  
 }
 
 
