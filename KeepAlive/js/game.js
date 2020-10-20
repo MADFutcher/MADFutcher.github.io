@@ -28,7 +28,7 @@ function keyDownHandler(e) {
     e.preventDefault();
     player.y = player.y + 5;
   }
-  
+  console.log(e.key)
 }
 
 
