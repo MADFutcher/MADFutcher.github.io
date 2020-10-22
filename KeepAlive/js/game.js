@@ -18,16 +18,16 @@ document.addEventListener('keydown', keyDownHandler, false);
 function keyDownHandler(e) {
   if (e.key == 'Right' || e.key == 'ArrowRight') {
     e.preventDefault();
-    player.x = player.x + 5;
+    player.x = player.x + 10;
   } else if (e.key == 'Left' || e.key == 'ArrowLeft') {
     e.preventDefault();
-    player.x = player.x - 5;
+    player.x = player.x - 10;
   } else if (e.key == 'Up' || e.key == 'ArrowUp') {
     e.preventDefault();
-    player.y = player.y - 5;
+    player.y = player.y - 10;
   } else if (e.key == 'Down' || e.key == 'ArrowDown') {
     e.preventDefault();
-    player.y = player.y + 5;
+    player.y = player.y + 10;
   }
 }
 
@@ -50,6 +50,9 @@ function clearCanvas() {
 }
 
 function randomNumber(max, min) {
+  if(min === 0 && max ===1){
+    return Math.round(Math.random())
+  }
   return Math.floor(Math.random() * (max - min) + min);
 }
 
@@ -92,29 +95,46 @@ function getPathCoords(xpos, ypos, speed) {
   let routeArray = [];
   let i = 3;
   let route = [];
+  let aimAtPlayer = false
+  let endPos;
+
+
+  if(randomNumber(2,0)===1){
+    aimAtPlayer = true
+  }else{
+    aimAtPlayer = false
+  }
+  
   while (i--) {
     let angle = randomNumber(0, 360);
-    // each line shouldn't be too long
-    let length = randomNumber(0, width / 5);
-    let endPos = getLineEndPoint(startPos, length, angle);
+    if(aimAtPlayer){
+      endPos = {x: player.x, y: player.y}
+    }else{
+      // each line shouldn't be too long
+      let length = randomNumber(0, width / 5);
+      endPos = getLineEndPoint(startPos, length, angle);
+      if (endPos.x > width) {
+        endPos.x = width - 100;
+      }
+      if (endPos.y > height) {
+        endPos.y = height - 100;
+      }
+      if (endPos.x < 0) {
+        endPos.x = width + 100;
+      }
+      if (endPos.y < 0) {
+        endPos.y = height + 100;
+      }
+    }
+    
+    
+
     let bezier1Angle = randomNumber(angle - 90, angle + 90) % 360;
     let bezier2Angle = (180 + randomNumber(angle - 90, angle + 90)) % 360;
     let bezier1Length = randomNumber(0, length / 2);
     let bezier2Length = randomNumber(0, length / 2);
     let bezier1Pos = getLineEndPoint(startPos, bezier1Length, bezier1Angle);
     let bezier2Pos = getLineEndPoint(endPos, bezier2Length, bezier2Angle);
-    if (endPos.x > width) {
-      endPos.x = width - 100;
-    }
-    if (endPos.y > height) {
-      endPos.y = height - 100;
-    }
-    if (endPos.x < 0) {
-      endPos.x = width + 100;
-    }
-    if (endPos.y < 0) {
-      endPos.y = height + 100;
-    }
     route.push(
       plotCBez(
         ghostSpeed,
@@ -235,14 +255,13 @@ function gameOver(message) {
 
 function resetLevel(){
   level = 1
-  foodQuantity = 1;
+  foodQuantity = 25;
   ghostQuantity = 3;
   ghostSpeed = 1000;
   document.getElementById('levelIndicator').textContent = `LEVEL ${level}`
 }
 
 function levelUp(message){
-  // console.log(`Current level: ${level}`)
   document.getElementById('message').innerHTML = `<h1>${message}</h1>`
   
   if(document.getElementById('nextLevel').classList.contains('d-none')){
@@ -321,7 +340,8 @@ function draw() {
 }
 
 resetLevel();
+initialisePlayer();
 initialiseGhost();
 initialiseFood();
-initialisePlayer();
+
 
