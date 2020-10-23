@@ -97,8 +97,7 @@ function getPathCoords(xpos, ypos, speed) {
   let route = [];
   let aimAtPlayer = false
   let endPos;
-
-
+  
   if(randomNumber(2,0)===1){
     aimAtPlayer = true
   }else{
@@ -126,9 +125,6 @@ function getPathCoords(xpos, ypos, speed) {
         endPos.y = height + 100;
       }
     }
-    
-    
-
     let bezier1Angle = randomNumber(angle - 90, angle + 90) % 360;
     let bezier2Angle = (180 + randomNumber(angle - 90, angle + 90)) % 360;
     let bezier1Length = randomNumber(0, length / 2);
@@ -214,8 +210,8 @@ function eatenFood(){
 function initialiseFood() {
   foodArray=[];
   for (let i = 0; i < foodQuantity; i++) {
-    let randomX = randomNumber(width, 10);
-    let randomY = randomNumber(height, 10);
+    let randomX = randomNumber(canvas.width, 10);
+    let randomY = randomNumber(canvas.height, 10);
     let radius = 5
     let food = new Food(randomX, randomY, radius);
     foodArray.push(food);
