@@ -335,9 +335,3 @@ function draw() {
   requestId = requestAnimationFrame(draw);
 }
 
-resetLevel();
-initialisePlayer();
-initialiseGhost();
-initialiseFood();
-
-
