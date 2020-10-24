@@ -1,4 +1,3 @@
-document.getElementById("eatBtn").addEventListener("click", startGame);
 let canvas = document.getElementById('canvas');
 let ctx = canvas.getContext('2d');
 let canvasCol = document.querySelector('#canvasCol');
@@ -6,10 +5,10 @@ const stats =  document.getElementById('statsCol')
 const healthBar = document.getElementById('healthBar')
 const progressBar = document.getElementById('progressBar');
 
-
+document.getElementById("eatBtn").addEventListener("click", startGame);
 document.getElementById('resetGame').addEventListener("click", startGame)
 document.getElementById('nextLevel').addEventListener("click", nextLevel)
-window.addEventListener('resize',resizeCanvas,false);
+
 
 
 function stopTimeout(timeout){
@@ -26,6 +25,7 @@ function startGame(){
         row.classList.toggle('d-none')
         stats.classList.toggle('d-none')
         canvas.classList.toggle('d-none')
+        
         resetLevel();
         initialisePlayer();
         initialiseGhost();

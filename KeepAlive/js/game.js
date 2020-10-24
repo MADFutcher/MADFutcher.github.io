@@ -7,13 +7,11 @@ let ghostQuantity;
 let healthDropInterval;
 let player;
 let box;
-let width;
-let height;
+let width = canvas.width
+let height = canvas.height
 let requestId;
 
-window.addEventListener('resize', resizeCanvas, false);
 document.addEventListener('keydown', keyDownHandler, false);
-// document.addEventListener("keyup", keyUpHandler, false);
 
 function keyDownHandler(e) {
   if (e.key == 'Right' || e.key == 'ArrowRight') {
@@ -30,20 +28,6 @@ function keyDownHandler(e) {
     player.y = player.y + 10;
   }
 }
-
-
-function resizeCanvas() {
-  let box = document.querySelector('#canvasCol');
-  width = box.offsetWidth;
-  height = box.offsetWidth;
-
-  if (height >= 1110) {
-    height = 570;
-  }
-  canvas.width = width;
-  canvas.height = height;
-}
-resizeCanvas();
 
 function clearCanvas() {
   ctx.clearRect(0, 0, width, height);
@@ -213,7 +197,8 @@ function initialiseFood() {
     let randomX = randomNumber(canvas.width, 10);
     let randomY = randomNumber(canvas.height, 10);
     let radius = 5
-    let food = new Food(randomX, randomY, radius);
+    let scale = 1.00
+    let food = new Food(randomX, randomY, radius, scale);
     foodArray.push(food);
   }
 }
@@ -225,7 +210,8 @@ function initialiseGhost() {
     let randomY = randomNumber(height, 100);
     let speed = ghostSpeed
     let path = getPathCoords(randomX, randomY);
-    let ghost = new Ghost(randomX, randomY, path, speed);
+    let scale = 1.00
+    let ghost = new Ghost(randomX, randomY, path, speed,scale);
     ghostsArray.push(ghost);
   }
 }
@@ -235,7 +221,8 @@ function initialisePlayer() {
   let randomY = randomNumber(height, 100);
   let radius = 10
   let health = 100
-  player = new Player(randomX, randomY,radius,health);
+  let scale = 1.00
+  player = new Player(randomX, randomY,radius,health,scale);
 }
 
 function gameOver(message) {
@@ -301,12 +288,15 @@ function draw() {
     gameOver('GAME OVER | Your Health ran out!');
     return;
   }
+
   ghostsArray.forEach((el) => {
     el.createGhost();
   });
+
   foodArray.forEach((el) => {
     el.createFood();
   });
+
   player.createPlayer();
   if(eatenFood()){
     if(level < 5){
@@ -323,7 +313,6 @@ function draw() {
   if(collision.length>0){
       player.health = player.health - (collision.length / 10)
       updateHealth()
-      // console.log(`player health: ${player.health}`)
       if(player.health<0){
         resetLevel()
         gameOver('GAME OVER | You were killed by a Ghost');

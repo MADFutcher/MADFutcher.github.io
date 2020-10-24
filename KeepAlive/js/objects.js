@@ -25,6 +25,7 @@ class Ghost{
         ctx.strokeStyle="black";
         ctx.lineWidth="1";
         ctx.fillStyle="rgba(255, 255, 255, 0.4)";
+
         //upper part
         ctx.beginPath(); 
         let boxH = this.y+this.height-10
@@ -48,6 +49,7 @@ class Ghost{
         ctx.fillStyle= this.colour
         ctx.fill();
         ctx.closePath();
+
         //eyes
         ctx.fillStyle = "#000000";
         ctx.beginPath();
@@ -69,16 +71,17 @@ class Ghost{
         let newCoords = getPathCoords(this.x, this.y, this.speed)
         this.path = this.path.concat(newCoords)
     }
-
 }
 
 class Food{
-    constructor(posX, posY, radius){
+    constructor(posX, posY, radius, scale){
         this.x = posX
         this.y = posY
         this.radius = radius
+        this.scale = scale
     }
     createFood(){
+        ctx.scale(this.scale, this.scale)
         ctx.strokeStyle = "#28A745";
         ctx.fillStyle = '#28A745';
         ctx.beginPath()
@@ -90,7 +93,7 @@ class Food{
 
 
 class Player{
-    constructor(posX, posY, radius, health, level, xp, score,){
+    constructor(posX, posY, radius, health, level, xp, score,scale){
         this.x = posX
         this.y = posY
         this.health = health
@@ -100,8 +103,10 @@ class Player{
         this.height = height
         this.width = width
         this.radius = radius
+        this.scale = scale
     }
     createPlayer(){
+        ctx.scale(this.scale, this.scale)
         ctx.strokeStyle = "#DC3545";
         ctx.fillStyle = '#DC3545';
         ctx.beginPath()
