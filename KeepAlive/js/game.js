@@ -245,8 +245,8 @@ function gameOver(message) {
 
 function resetLevel(){
   level = 1
-  foodQuantity = 1;
-  ghostQuantity = 3;
+  foodQuantity = 25;
+  ghostQuantity = 4;
   ghostSpeed = 1000;
   document.getElementById('levelIndicator').textContent = `LEVEL ${level}`
 }
