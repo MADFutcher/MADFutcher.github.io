@@ -10,6 +10,9 @@ let box;
 let width = canvas.width
 let height = canvas.height
 let requestId;
+let gameOverAudio = new Audio('../sound/gameOver.mp3')
+let winningAudio = new Audio('../sound/Winning.mp3')
+let heartBeatAudio = new Audio('../sound/heartbeat.mp3')
 
 document.addEventListener('keydown', keyDownHandler, false);
 
@@ -47,11 +50,14 @@ function updateHealth(){
     healthBar.classList.remove('bg-danger')
   } else if(player.health <=50 && player.health>25){
     healthBar.classList.remove('bg-success')
+    healthBar.classList.remove('bg-danger')
     healthBar.classList.add('bg-warning')
+
   }else if(player.health <=25){
     healthBar.classList.remove('bg-success')
     healthBar.classList.remove('bg-warning')
     healthBar.classList.add('bg-danger')
+    // heartBeatAudio.play();
   }
   healthBar.style.width = `${player.health}%`
 }
@@ -231,6 +237,7 @@ function gameOver(message) {
     if(!document.getElementById('nextLevel').classList.contains('d-none')){
       document.getElementById('nextLevel').classList.add('d-none')
     }
+    gameOverAudio.play();
     $('#myModal').modal()
     cancelAnimationFrame(requestId)
     stopInterval(healthDropInterval)
@@ -238,7 +245,7 @@ function gameOver(message) {
 
 function resetLevel(){
   level = 1
-  foodQuantity = 25;
+  foodQuantity = 1;
   ghostQuantity = 3;
   ghostSpeed = 1000;
   document.getElementById('levelIndicator').textContent = `LEVEL ${level}`
@@ -250,6 +257,7 @@ function levelUp(message){
   if(document.getElementById('nextLevel').classList.contains('d-none')){
     document.getElementById('nextLevel').classList.remove('d-none')
   }
+  winningAudio.play()
   $('#myModal').modal()
   cancelAnimationFrame(requestId)
   stopInterval(healthDropInterval)
@@ -322,6 +330,9 @@ function draw() {
         return;
       }
 
+  }
+  if(player.health<25){
+    heartBeatAudio.play()
   }
   requestId = requestAnimationFrame(draw);
 }

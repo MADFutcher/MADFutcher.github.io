@@ -16,6 +16,13 @@ p{
     color: #28A745;
 }
 
+.blue{
+    color: #01507C
+}
+
+.bg-blue{
+    background-color: #01507C;
+}
 .red{
     color: #DC3545;
 }
