@@ -7,6 +7,7 @@ class Ghost{
         this.path = path;
         this.height = 50
         this.width = 50
+        this.audio = new Audio('../sound/ghostHit.mp3')
     }
 
     createGhost(){
@@ -79,6 +80,7 @@ class Food{
         this.y = posY
         this.radius = radius
         this.scale = scale
+        this.audio = new Audio('../sound/bite.mp3');
     }
     createFood(){
         ctx.scale(this.scale, this.scale)

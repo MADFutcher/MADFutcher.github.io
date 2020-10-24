@@ -72,7 +72,7 @@ function healthDrop(){
     ,5000)
 }
 
-function getPathCoords(xpos, ypos, speed) {
+function getPathCoords(xpos, ypos, speed, initialPath=0) {
   //Ghostspeed indicates the amount of points in the plotCBez, the lower the number the less points the fast the ghost moves.
   let ghostSpeed = speed;
   let startPos = { x: xpos, y: ypos };
@@ -81,13 +81,13 @@ function getPathCoords(xpos, ypos, speed) {
   let route = [];
   let aimAtPlayer = false
   let endPos;
-  
-  if(randomNumber(2,0)===1){
-    aimAtPlayer = true
-  }else{
-    aimAtPlayer = false
-  }
-  
+  if(initialPath ===0){
+    if(randomNumber(2,0)===1){
+      aimAtPlayer = true
+    }else{
+      aimAtPlayer = false
+    }
+  }  
   while (i--) {
     let angle = randomNumber(0, 360);
     if(aimAtPlayer){
@@ -139,7 +139,7 @@ function getPathCoords(xpos, ypos, speed) {
 }
 
 function collisionDetection() {
-    let hitArr = [];
+  let hitArr = [];
   ghostsArray.forEach((ghost) => {
     // console.log(ghost.name)
     function clamp(val, min, max) {
@@ -157,16 +157,16 @@ function collisionDetection() {
 
     // If the distance is less than the circle's radius, an intersection occurs
     var distanceSquared = (distanceX * distanceX) + (distanceY * distanceY);
-
     if(distanceSquared < (player.radius * player.radius)){
         hitArr.push(true)
+        ghost.audio.play()
     }
   });
   return hitArr
 }
 
 function eatenFood(){
-    let eatenArr = [];
+    // let eatenArr = [];
     if(foodArray.length===0){
         return true;
     }
@@ -179,14 +179,13 @@ function eatenFood(){
         var distance = Math.sqrt(dx * dx + dy * dy);
     
         if (distance < circle1.radius + circle2.radius) {
-
-            eatenArr.push(true)
             object.splice(index,1)
             if(player.health <100){
                 player.health ++
                 updateHealth()
             }
             updateProgress()
+            food.audio.play();
         }
     })
 }
@@ -209,7 +208,8 @@ function initialiseGhost() {
     let randomX = randomNumber(width, 100);
     let randomY = randomNumber(height, 100);
     let speed = ghostSpeed
-    let path = getPathCoords(randomX, randomY);
+    let initial = 1;
+    let path = getPathCoords(randomX, randomY, speed, initial);
     let scale = 1.00
     let ghost = new Ghost(randomX, randomY, path, speed,scale);
     ghostsArray.push(ghost);
@@ -298,6 +298,7 @@ function draw() {
   });
 
   player.createPlayer();
+
   if(eatenFood()){
     if(level < 5){
       levelUp(`You have completed level ${level}`);
@@ -309,6 +310,7 @@ function draw() {
     }
     
   };
+
   let collision = collisionDetection()
   if(collision.length>0){
       player.health = player.health - (collision.length / 10)
