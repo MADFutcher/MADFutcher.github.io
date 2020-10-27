@@ -57,7 +57,6 @@ function updateHealth(){
     healthBar.classList.remove('bg-success')
     healthBar.classList.remove('bg-warning')
     healthBar.classList.add('bg-danger')
-    // heartBeatAudio.play();
   }
   healthBar.style.width = `${player.health}%`
 }
@@ -203,7 +202,7 @@ function initialiseFood() {
     let randomY = randomNumber(canvas.height, 10);
     let radius = 5
     let scale = 1.00
-    let food = new Food(randomX, randomY, radius, scale);
+    let food = new Food(randomX, randomY, radius);
     foodArray.push(food);
   }
 }
@@ -217,7 +216,7 @@ function initialiseGhost() {
     let initial = 1;
     let path = getPathCoords(randomX, randomY, speed, initial);
     let scale = 1.00
-    let ghost = new Ghost(randomX, randomY, path, speed,scale);
+    let ghost = new Ghost(randomX, randomY, path, speed);
     ghostsArray.push(ghost);
   }
 }
@@ -228,7 +227,7 @@ function initialisePlayer() {
   let radius = 10
   let health = 100
   let scale = 1.00
-  player = new Player(randomX, randomY,radius,health,scale);
+  player = new Player(randomX, randomY,radius,health);
 }
 
 function gameOver(message) {
@@ -326,7 +325,6 @@ function draw() {
       if(player.health<0){
         resetLevel()
         gameOver('GAME OVER | You were killed by a Ghost');
-        
         return;
       }
 

@@ -75,15 +75,13 @@ class Ghost{
 }
 
 class Food{
-    constructor(posX, posY, radius, scale){
+    constructor(posX, posY, radius){
         this.x = posX
         this.y = posY
         this.radius = radius
-        this.scale = scale
         this.audio = new Audio('../sound/bite.mp3');
     }
     createFood(){
-        ctx.scale(this.scale, this.scale)
         ctx.strokeStyle = "#28A745";
         ctx.fillStyle = '#28A745';
         ctx.beginPath()
@@ -95,20 +93,13 @@ class Food{
 
 
 class Player{
-    constructor(posX, posY, radius, health, level, xp, score,scale){
+    constructor(posX, posY, radius, health){
         this.x = posX
         this.y = posY
         this.health = health
-        this.level = level 
-        this.xp = xp 
-        this.score = score
-        this.height = height
-        this.width = width
         this.radius = radius
-        this.scale = scale
     }
     createPlayer(){
-        ctx.scale(this.scale, this.scale)
         ctx.strokeStyle = "#DC3545";
         ctx.fillStyle = '#DC3545';
         ctx.beginPath()
