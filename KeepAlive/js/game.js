@@ -201,7 +201,6 @@ function initialiseFood() {
     let randomX = randomNumber(canvas.width, 10);
     let randomY = randomNumber(canvas.height, 10);
     let radius = 5
-    let scale = 1.00
     let food = new Food(randomX, randomY, radius);
     foodArray.push(food);
   }
