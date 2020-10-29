@@ -4,10 +4,28 @@ let canvasCol = document.querySelector('#canvasCol');
 const stats =  document.getElementById('statsCol')
 const healthBar = document.getElementById('healthBar')
 const progressBar = document.getElementById('progressBar');
+const muteButton = document.getElementById('bgMute')
+const unmuteButton = document.getElementById('bgUnmute')
+
+const bgMusic = new Audio('../sound/backGround.mp3')
 
 document.getElementById("eatBtn").addEventListener("click", startGame);
 document.getElementById('resetGame').addEventListener("click", startGame)
 document.getElementById('nextLevel').addEventListener("click", nextLevel)
+
+
+muteButton.addEventListener('click', function(){
+    bgMusic.pause()
+    muteButton.classList.toggle('d-none');
+    unmuteButton.classList.toggle('d-none')
+})
+unmuteButton.addEventListener('click', function(){
+    bgMusic.play()
+    muteButton.classList.toggle('d-none');
+    unmuteButton.classList.toggle('d-none')
+
+})
+
 
 
 
@@ -69,3 +87,9 @@ function nextLevel(){
     },1000)
 
 }
+
+window.onload = (event)=>{
+    bgMusic.play()
+}
+   
+    

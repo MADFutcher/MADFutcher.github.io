@@ -34,3 +34,8 @@ p{
 .ghost{
     color: rgb(150, 146, 146, 0.5)
 }
+
+#bgMute,
+#bgUnmute{
+    font-size: 2rem;
+}

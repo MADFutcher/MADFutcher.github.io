@@ -13,6 +13,8 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
         integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous" />
+    <!-- FONT AWESOME -->
+    <script src="https://kit.fontawesome.com/c9df965126.js" crossorigin="anonymous"></script>
     <!-- OWN STYLE SHEET -->
     <link rel="stylesheet" href="./css/style.css" />
 
@@ -22,6 +24,12 @@
     
     <nav class="navbar fixed-top navbar-dark bg-blue">
         <a class="navbar-brand green" href="#">KEEP-ALIVE</a>
+            <ul class="navbar-nav text-right">
+              <li class="nav-item">
+                <i id="bgMute" class="fas fa-volume-slash text-white"></i>
+                <i id="bgUnmute" class="fas fa-volume-up text-white d-none"></i>
+              </li>
+            </ul>
     </nav>
     <div class="container-fluid mt-5">
         <div class="row">
