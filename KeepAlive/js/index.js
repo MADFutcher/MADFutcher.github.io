@@ -90,5 +90,6 @@ function nextLevel(){
 }
 
 window.onload = (event) =>{
+    bgMusic.loop = true
     bgMusic.play()
 }
