@@ -10,9 +10,9 @@ let box;
 let width = canvas.width
 let height = canvas.height
 let requestId;
-let gameOverAudio = new Audio('../sound/gameOver.mp3')
-let winningAudio = new Audio('../sound/Winning.mp3')
-let heartBeatAudio = new Audio('../sound/heartbeat.mp3')
+let gameOverAudio = new Audio('./sound/gameOver.mp3')
+let winningAudio = new Audio('./sound/Winning.mp3')
+let heartBeatAudio = new Audio('./sound/heartbeat.mp3')
 
 document.addEventListener('keydown', keyDownHandler, false);
 

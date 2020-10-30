@@ -7,7 +7,7 @@ const progressBar = document.getElementById('progressBar');
 const muteButton = document.getElementById('bgMute')
 const unmuteButton = document.getElementById('bgUnmute')
 
-const bgMusic = new Audio('../sound/backGround.mp3')
+const bgMusic = new Audio('./sound/backGround.mp3')
 
 document.getElementById("eatBtn").addEventListener("click", startGame);
 document.getElementById('resetGame').addEventListener("click", startGame)
