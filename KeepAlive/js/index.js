@@ -89,6 +89,6 @@ function nextLevel(){
 
 }
 
-window.load = (event) =>{
+window.onload = (event) =>{
     bgMusic.play()
 }
