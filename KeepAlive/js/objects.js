@@ -7,7 +7,7 @@ class Ghost{
         this.path = path;
         this.height = 50
         this.width = 50
-        this.audio = new Audio('../sound/madscientist.mp3')
+        this.audio = new Audio('./sound/madscientist.mp3')
     }
 
     createGhost(){
@@ -79,7 +79,7 @@ class Food{
         this.x = posX
         this.y = posY
         this.radius = radius
-        this.audio = new Audio('../sound/bite.mp3');
+        this.audio = new Audio('./sound/bite.mp3');
     }
     createFood(){
         ctx.strokeStyle = "#28A745";

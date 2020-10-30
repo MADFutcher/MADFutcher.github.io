@@ -8,6 +8,7 @@ const muteButton = document.getElementById('bgMute')
 const unmuteButton = document.getElementById('bgUnmute')
 
 const bgMusic = new Audio('./sound/backGround.mp3')
+bgMusic.volume = 0.05
 
 document.getElementById("eatBtn").addEventListener("click", startGame);
 document.getElementById('resetGame').addEventListener("click", startGame)
@@ -88,8 +89,6 @@ function nextLevel(){
 
 }
 
-window.onload = (event)=>{
+window.load = (event) =>{
     bgMusic.play()
 }
-   
-    

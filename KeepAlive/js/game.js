@@ -164,6 +164,7 @@ function collisionDetection() {
     var distanceSquared = (distanceX * distanceX) + (distanceY * distanceY);
     if(distanceSquared < (player.radius * player.radius)){
         hitArr.push(true)
+        ghost.audio.volume = 0.05
         ghost.audio.play()
     }
   });
@@ -190,6 +191,7 @@ function eatenFood(){
                 updateHealth()
             }
             updateProgress()
+            food.audio.volume = 0.05
             food.audio.play();
         }
     })
@@ -235,6 +237,7 @@ function gameOver(message) {
     if(!document.getElementById('nextLevel').classList.contains('d-none')){
       document.getElementById('nextLevel').classList.add('d-none')
     }
+    gameOverAudio.volume=0.05
     gameOverAudio.play();
     $('#myModal').modal()
     cancelAnimationFrame(requestId)
@@ -255,6 +258,7 @@ function levelUp(message){
   if(document.getElementById('nextLevel').classList.contains('d-none')){
     document.getElementById('nextLevel').classList.remove('d-none')
   }
+  winningAudio.volume = 0.05
   winningAudio.play()
   $('#myModal').modal()
   cancelAnimationFrame(requestId)
