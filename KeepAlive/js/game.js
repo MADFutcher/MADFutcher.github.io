@@ -254,7 +254,7 @@ function gameOver(message) {
 
 function resetLevel(){
   level = 1
-  foodQuantity = 2;
+  foodQuantity = 15;
   ghostQuantity = 3;
   ghostSpeed = 1000;
   document.getElementById('levelIndicator').textContent = `LEVEL ${level}`
@@ -318,7 +318,7 @@ function draw() {
   player.createPlayer();
 
   if(eatenFood()){
-    if(level < 1){
+    if(level < 5){
       levelUp(`You have completed level ${level}`);
       return;
     }else{
