@@ -233,12 +233,20 @@ function initialisePlayer() {
 
 function gameOver(message) {
     messages = message.split('|')
+
     document.getElementById('message').innerHTML = `<h1>${messages[0]}</h1><p>${messages[1]}</p>`
     if(!document.getElementById('nextLevel').classList.contains('d-none')){
       document.getElementById('nextLevel').classList.add('d-none')
     }
-    gameOverAudio.volume=0.05
-    gameOverAudio.play();
+    console.log(messages[0])
+    if(messages[0].includes('Won')){
+      winningAudio.volume = 0.05
+      winningAudio.play()
+    }else{
+      gameOverAudio.volume=0.05
+      gameOverAudio.play();
+    }
+    
     $('#myModal').modal()
     cancelAnimationFrame(requestId)
     stopInterval(healthDropInterval)
@@ -246,7 +254,7 @@ function gameOver(message) {
 
 function resetLevel(){
   level = 1
-  foodQuantity = 25;
+  foodQuantity = 2;
   ghostQuantity = 3;
   ghostSpeed = 1000;
   document.getElementById('levelIndicator').textContent = `LEVEL ${level}`
@@ -269,7 +277,7 @@ function levelUp(message){
 
   switch (level){
     case 2:
-      foodQuantity = 20;
+      foodQuantity = 3;
       ghostQuantity = 5;
       ghostSpeed = 800;
       break;
@@ -310,12 +318,12 @@ function draw() {
   player.createPlayer();
 
   if(eatenFood()){
-    if(level < 5){
+    if(level < 1){
       levelUp(`You have completed level ${level}`);
       return;
     }else{
       resetLevel()
-      gameOver('Game Over | You have Completed All Levels')
+      gameOver("You've Won!| You have Completed All Levels")
       return;
     }
     

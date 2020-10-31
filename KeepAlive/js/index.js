@@ -39,7 +39,11 @@ function stopInterval(timeout){
 
 
 function startGame(){
+    gameOverAudio.pause()
+    winningAudio.pause()
     if(this.getAttribute('id') == 'eatBtn'){
+        bgMusic.loop = true
+        bgMusic.play()
         let row = this.parentNode.parentNode
         row.classList.toggle('d-none')
         stats.classList.toggle('d-none')
@@ -50,6 +54,7 @@ function startGame(){
         initialiseGhost();
         initialiseFood();
     }else{
+        bgMusic.play()
         resetLevel();
         initialiseGhost()
         initialisePlayer()
@@ -87,9 +92,4 @@ function nextLevel(){
         setTimeout(healthDrop,10000)
     },1000)
 
-}
-
-window.onload = (event) =>{
-    bgMusic.loop = true
-    bgMusic.play()
 }
